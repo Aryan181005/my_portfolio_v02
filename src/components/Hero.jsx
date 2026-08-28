@@ -7,7 +7,11 @@ import {
   LinkedinIcon,
 } from "@animateicons/react/lucide";
 import { motion } from "framer-motion";
-import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import React, { useEffect, useRef, useState } from "react";
+
+gsap.registerPlugin(useGSAP);
 
 const Hero = () => {
   const socials = [
@@ -35,7 +39,7 @@ const Hero = () => {
         onMouseEnter={() => iconRef.current?.startAnimation()}
         onMouseLeave={() => iconRef.current?.stopAnimation()}
         href={href}
-        className={`flex items-center justify-between rounded-full pl-5 pr-2 py-2 z-10 ${isPrimary ? "bg-foreground text-background min-w-48" : "border border-muted/40 min-w-sm"}`}
+        className={`flex items-center justify-between rounded-full pl-5 pr-2 py-2 z-10 ${isPrimary ? "bg-foreground text-background min-w-[80vw] lg:min-w-64" : "border border-muted/40 min-w-[80vw] lg:min-w-sm"}`}
       >
         <p className="font-poppins">{label}</p>
         <span
@@ -47,30 +51,167 @@ const Hero = () => {
     );
   };
 
+  const isMobile = useState(window.innerWidth < 769);
+
+  // GSAP
+
+  const nameRef = useRef(null);
+  const surnameRef = useRef(null);
+  const helloRef = useRef(null);
+  const imgRef = useRef(null);
+  const ctaRef = useRef(null);
+  const dividerRef = useRef(null);
+
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      defaults: {
+        ease: "power4.out",
+      },
+    });
+
+    tl
+      // divider
+      .fromTo(
+        dividerRef.current,
+        {
+          scaleY: 0,
+          transformOrigin: "top center",
+        },
+        {
+          scaleY: 1,
+          duration: 1,
+        },
+      )
+      // hello line
+      .fromTo(
+        helloRef.current.children,
+        {
+          opacity: 0,
+          filter: "blur(8px)",
+        },
+        {
+          opacity: 1,
+          filter: "blur(0px)",
+          stagger: 1,
+          duration: 1.2,
+        },
+        "-=1",
+      )
+      // name
+      .fromTo(
+        nameRef.current.children,
+        {
+          xPercent: -100,
+          opacity: 0,
+          filter: "blur(12px)",
+        },
+        {
+          xPercent: 0,
+          opacity: 1,
+          stagger: 0.08,
+          filter: "blur(0px)",
+          duration: 1.2,
+        },
+        "-=1.1",
+      )
+      // surname
+      .fromTo(
+        surnameRef.current.children,
+        {
+          xPercent: -100,
+          opacity: 0,
+          filter: "blur(20px)",
+        },
+        {
+          xPercent: 0,
+          opacity: 1,
+          stagger: 0.08,
+          filter: "blur(0px)",
+          duration: 1.2,
+        },
+        "-=1.28",
+      )
+      // Hero image
+      .fromTo(
+        imgRef.current,
+        {
+          filter: "blur(12px)",
+          scale: 0.9,
+          opacity: 0,
+        },
+        {
+          filter: "blur(0px)",
+          scale: 1,
+          opacity: 1,
+          duration: 1.2,
+        },
+        "-=0.8",
+      )
+      // CTA Container
+      .fromTo(
+        ctaRef.current,
+        {
+          yPercent: 100,
+          opacity: 0,
+        },
+        {
+          yPercent: 0,
+          opacity: 1,
+          duration: 1,
+        },
+      );
+  }, []);
+
   return (
     <section className="min-h-screen">
       {/* Main Container */}
       <div className="flex flex-col justify-center items-center">
         {/* Hero */}
-        <div className="relative grid grid-cols-2 flex-1 justify-center items-center">
+        <div className="relative grid grid-cols-1 lg:grid-cols-2 flex-1 justify-center items-center">
           {/* Left */}
-          <div className="flex flex-col h-180 justify-end px-8">
-            <div className="flex gap-1">
+          <div className="flex flex-col lg:h-180 mt-15 lg:mt-0 justify-end px-6 lg:px-8">
+            <div
+              ref={helloRef}
+              className="flex gap-1 mb-5 lg:mb-0 text-xs md:text-base"
+            >
               <p className="text-muted tracking-wide font-poppins">Hello!</p>
               <span className="text-foreground font-poppins">My name is</span>
             </div>
-            <h1 className="text-[10rem] whitespace-nowrap leading-none font-sulphur text-accent">
-              Aryan
-            </h1>
-            <span className="self-end mb-7 text-[10rem] whitespace-nowrap leading-none font-sulphur text-foreground">
-              Singh
-            </span>
+            {/* Name */}
+            <div className="flex flex-col">
+              <h1
+                ref={nameRef}
+                className="text-8xl md:text-[10rem] font-sulphur text-accent"
+              >
+                {"Aryan".split("").map((letter, idx) => (
+                  <span key={idx} className="inline-block leading-none">
+                    {letter}
+                  </span>
+                ))}
+              </h1>
+              <h1
+                ref={surnameRef}
+                className="lg:self-end mb-7 text-8xl md:text-[10rem] whitespace-nowrap leading-none font-sulphur text-foreground"
+              >
+                {"Singh".split("").map((letter, idx) => (
+                  <span key={idx} className="inline-block leading-none">
+                    {letter}
+                  </span>
+                ))}
+              </h1>
+            </div>
           </div>
           {/* Divider */}
-          <div className="absolute left-1/2 w-px h-full rounded-full bg-muted/20" />
+          <div
+            ref={dividerRef}
+            className="lg:absolute lg:left-1/2 h-px w-[85vw] mx-auto lg:mx-0 lg:w-px lg:h-full rounded-full bg-muted/40"
+          />
           {/* Right */}
-          <div className="h-180 flex-1 px-8 py-5">
-            <div className="relative w-full h-full rounded-4xl overflow-clip">
+          <div className="lg:h-180 flex-1 px-5 lg:px-8 py-5">
+            <div
+              ref={imgRef}
+              className="relative w-full h-full rounded-4xl overflow-clip"
+            >
               <img
                 src="/portrait.png"
                 alt="Portrait"
@@ -80,7 +221,7 @@ const Hero = () => {
               <div className="absolute inset-5 flex justify-end items-end flex-col gap-2">
                 {socials.map((icon, idx) => (
                   <a
-                    className="rounded-full bg-surface p-3 border border-border text-foreground hover:bg-accent hover:text-background transition-colors duration-200"
+                    className="rounded-full bg-surface/30 backdrop-blur-sm p-3 border border-border text-foreground hover:bg-accent hover:text-background transition-colors duration-200"
                     href=""
                     key={idx}
                   >
@@ -93,32 +234,44 @@ const Hero = () => {
         </div>
       </div>
       {/* CTAs */}
-      <div className="relative flex gap-4 items-center justify-end max-w-[80vw] mx-auto p-8">
+      <div
+        ref={ctaRef}
+        className="relative flex flex-col lg:flex-row lg:gap-4 gap-8 items-center justify-center lg:justify-end lg:max-w-[80vw] mx-5 lg:mx-auto p-8"
+      >
         {/* Gradient Border */}
-        <div className="absolute inset-0 z-0 bg-linear-to-b from-border to-transparent p-px rounded-4xl">
-          <div className="h-full w-full rounded-4xl bg-background" />
-        </div>
+        <div
+          className="
+        absolute inset-0
+        h-full
+        border-t border-l border-r rounded-t-4xl
+        border-border
+        mask-[linear-gradient(to_bottom,var(--color-background)_0%,transparent_100%)]
+        "
+        />
         {/* Scroll Indicator */}
-        <div className="z-10 mr-auto flex items-center justify-center gap-2">
+        <div className="mr-auto flex items-center justify-center gap-2">
           <p>Scroll Down</p>
           <span>
             <ChevronDownIcon ref={scrollIconRef} />
           </span>
         </div>
-        <Ctas
-          label="View My Works"
-          icon={ChevronRightIcon}
-          href=""
-          isPrimary={false}
-          iconRef={ctaSecondaryRef}
-        />
-        <Ctas
-          label="Contact Me"
-          icon={ArrowRight}
-          href=""
-          isPrimary={true}
-          iconRef={ctaPrimaryRef}
-        />
+        {/* CTA container */}
+        <div className="z-0 flex flex-col lg:flex-row gap-4">
+          <Ctas
+            label="View My Works"
+            icon={ChevronRightIcon}
+            href=""
+            isPrimary={false}
+            iconRef={ctaSecondaryRef}
+          />
+          <Ctas
+            label="Contact Me"
+            icon={ArrowRight}
+            href=""
+            isPrimary={true}
+            iconRef={ctaPrimaryRef}
+          />
+        </div>
       </div>
     </section>
   );
