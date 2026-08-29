@@ -1,23 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import Home from "./pages/Home";
-import { AnimatePresence } from "framer-motion";
+import { Route, Routes } from "react-router";
+import About from "./pages/About";
+import Skills from "./pages/Skills";
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <div className="relative min-h-screen">
-      <video
-        src="/background.mp4"
-        loop
-        autoPlay
-        playsInline
-        muted
-        preload="auto"
-        className="fixed inset-0 z-0 h-full w-full object-cover object-center pointer-events-none"
-      />
-      <Home />
-    </div>
+    <>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/skills" element={<Skills />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home />} />
+    </Routes>
+    </>
   );
 };
 

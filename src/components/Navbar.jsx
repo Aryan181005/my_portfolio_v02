@@ -29,30 +29,28 @@ const Navbar = () => {
   const location = useLocation();
 
   const isMobile = window.innerWidth < 769;
-  console.log(isMobile);
 
   const [menuOpen, setMenuOpen] = useState(false);
-  console.log(menuOpen);
 
   // GSAP
   const navRef = useRef(null);
 
-  useGSAP(() => {
-    gsap.fromTo(
-      navRef.current,
-      {
-        yPercent: -100,
-        opacity: 0,
-      },
-      {
-        yPercent: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power4.out",
-      },
-      "+=2.8",
-    );
-  }, []);
+  // useGSAP(() => {
+  //   gsap.fromTo(
+  //     navRef.current,
+  //     {
+  //       yPercent: -100,
+  //       opacity: 0,
+  //     },
+  //     {
+  //       yPercent: 0,
+  //       opacity: 1,
+  //       duration: 1,
+  //       ease: "power4.out",
+  //     },
+  //     "+=2.8",
+  //   );
+  // }, []);
 
   return (
     <>
