@@ -38,7 +38,7 @@
   font-family: "Sulphur Point";
   src: url("/fonts/SulphurPoint-Bold.ttf") format("truetype");
   font-weight: 700;
-  font-style: normal;
+  font-style: bold;
   font-display: swap;
 }
 
@@ -50,6 +50,6 @@
   font-display: swap;
 }
 
-body{
-  @apply bg-background text-foreground
+body {
+  @apply bg-background text-foreground;
 }

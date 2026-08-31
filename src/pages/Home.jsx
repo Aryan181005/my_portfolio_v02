@@ -3,6 +3,7 @@ import Hero from "../components/Hero";
 import Navbar from "../components/Navbar";
 import Marquee from "../components/Marquee";
 import Footer from "../components/Footer";
+import Projects from "../components/Projects";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <Navbar />
       <Hero />
       <Marquee />
+      <Projects />
       <Footer />
     </div>
   );

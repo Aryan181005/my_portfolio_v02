@@ -23,7 +23,7 @@ const MarqContent2 = () => {
       {marq2.map((text, idx) => (
         <React.Fragment key={idx}>
           <span className="font-poppins text-4xl lg:text-7xl">{text}</span>
-          <img src="/favicon.svg" alt="icon" className="w-12 h-12 lg:w-20 lg:h-20" />
+          <img src="/favicon_black.svg" alt="icon" className="w-12 h-12 lg:w-20 lg:h-20" />
         </React.Fragment>
       ))}
     </>
@@ -32,7 +32,7 @@ const MarqContent2 = () => {
 
 const Marquee = () => {
   return (
-    <section className="h-[50vh] bg-foreground overflow-hidden pt-20">
+    <section className="h-[25vh] lg:h-[50vh] bg-foreground overflow-hidden py-30">
       {/* Marquee 1 */}
       <div className="rotate-6">
         <motion.div
@@ -40,28 +40,28 @@ const Marquee = () => {
             x: ["0%", "-50%"],
           }}
           transition={{
-            duration: 15,
+            duration: 40,
             ease: "linear",
             repeat: Infinity,
           }}
-          className="bg-background flex gap-6 w-max"
+          className="bg-background text-foreground flex gap-6 w-max"
         >
           <MarqContent />
           <MarqContent />
         </motion.div>
       </div>
       {/* Marquee 2 */}
-      <div className="-rotate-6 ">
+      <div className="-rotate-6">
         <motion.div
           animate={{
             x: ["0%", "-50%"],
           }}
           transition={{
-            duration: 15,
+            duration: 40,
             ease: "linear",
             repeat: Infinity,
           }}
-          className="bg-background flex gap-6 w-max"
+          className="bg-accent text-background flex gap-6 w-max"
         >
           <MarqContent2 />
           <MarqContent2 />

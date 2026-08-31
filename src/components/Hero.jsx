@@ -66,121 +66,123 @@ const Hero = () => {
   const dividerRef = useRef(null);
   const videoRef = useRef(null);
 
-  // useGSAP(() => {
-  //   const tl = gsap.timeline({
-  //     defaults: {
-  //       ease: "power4.out",
-  //     },
-  //   });
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      defaults: {
+        ease: "power4.out",
+      },
+    });
 
-  //   tl
-  //     // BG Video
-  //     .fromTo(
-  //       videoRef.current,
-  //       {
-  //         opacity: 0,
-  //       },
-  //       {
-  //         opacity: 1,
-  //         duration: 2,
-  //         ease: "power4.out",
-  //       },
-  //     )
-  //     // hello line
-  //     .fromTo(
-  //       helloRef.current.children,
-  //       {
-  //         opacity: 0,
-  //         filter: "blur(8px)",
-  //       },
-  //       {
-  //         opacity: 1,
-  //         filter: "blur(0px)",
-  //         stagger: 1,
-  //         duration: 1.2,
-  //       },
-  //       "-=1.8",
-  //     )
-  //     // name
-  //     .fromTo(
-  //       nameRef.current.children,
-  //       {
-  //         // xPercent: -100,
-  //         opacity: 0,
-  //         yPercent: 20,
-  //         filter: "blur(12px)",
-  //       },
-  //       {
-  //         // xPercent: 0,
-  //         opacity: 1,
-  //         yPercent: 0,
-  //         stagger: 0.08,
-  //         filter: "blur(0px)",
-  //         duration: 1.2,
-  //       },
-  //       "-=1.1",
-  //     )
-  //     // surname
-  //     .fromTo(
-  //       surnameRef.current.children,
-  //       {
-  //         // xPercent: -100,
-  //         yPercent: 20,
-  //         opacity: 0,
-  //         filter: "blur(20px)",
-  //       },
-  //       {
-  //         // xPercent: 0,
-  //         yPercent: 0,
-  //         opacity: 1,
-  //         stagger: 0.08,
-  //         filter: "blur(0px)",
-  //         duration: 1.2,
-  //       },
-  //       "-=1.28",
-  //     )
-  //     // Hero image
-  //     .fromTo(
-  //       imgRef.current,
-  //       {
-  //         filter: "blur(12px)",
-  //         scale: 0.9,
-  //         opacity: 0,
-  //       },
-  //       {
-  //         filter: "blur(0px)",
-  //         scale: 1,
-  //         opacity: 1,
-  //         duration: 1.2,
-  //       },
-  //       "-=0.8",
-  //     )
-  //     // divider
-  //     .fromTo(
-  //       dividerRef.current,
-  //       {
-  //         scaleY: 0,
-  //         transformOrigin: "top center",
-  //       },
-  //       {
-  //         scaleY: 1,
-  //         duration: 1,
-  //       },
-  //     )
-  //     // CTA Container
-  //     .fromTo(
-  //       ctaRef.current,
-  //       {
-  //         yPercent: 100,
-  //         opacity: 0,
-  //       },
-  //       {
-  //         yPercent: 0,
-  //         opacity: 1,
-  //         duration: 1,
-  //       },
-  //     );
-  // }, []);
+    tl
+      // BG Video
+      .fromTo(
+        videoRef.current,
+        {
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+          duration: 2,
+          ease: "power4.out",
+        },
+      )
+      // hello line
+      .fromTo(
+        helloRef.current.children,
+        {
+          opacity: 0,
+          filter: "blur(8px)",
+        },
+        {
+          opacity: 1,
+          filter: "blur(0px)",
+          stagger: 0.4,
+          duration: 1.2,
+        },
+        "-=1.8",
+      )
+      // name
+      .fromTo(
+        nameRef.current.children,
+        {
+          // xPercent: -100,
+          opacity: 0,
+          yPercent: 20,
+          filter: "blur(12px)",
+        },
+        {
+          // xPercent: 0,
+          opacity: 1,
+          yPercent: 0,
+          stagger: 0.08,
+          filter: "blur(0px)",
+          duration: 1.2,
+        },
+        "-=1.5",
+      )
+      // surname
+      .fromTo(
+        surnameRef.current.children,
+        {
+          // xPercent: -100,
+          yPercent: 20,
+          opacity: 0,
+          filter: "blur(20px)",
+        },
+        {
+          // xPercent: 0,
+          yPercent: 0,
+          opacity: 1,
+          stagger: 0.08,
+          filter: "blur(0px)",
+          duration: 1.2,
+        },
+        "-=1.28",
+      )
+      // Hero image
+      .fromTo(
+        imgRef.current,
+        {
+          filter: "blur(12px)",
+          scale: 0.9,
+          opacity: 0,
+        },
+        {
+          filter: "blur(0px)",
+          scale: 1,
+          opacity: 1,
+          duration: 1.2,
+        },
+        "-=0.8",
+      )
+      // divider
+      .fromTo(
+        dividerRef.current,
+        {
+          scaleY: 0,
+          transformOrigin: "top center",
+        },
+        {
+          scaleY: 1,
+          duration: 1,
+        },
+        "-=1"
+      )
+      // CTA Container
+      .fromTo(
+        ctaRef.current,
+        {
+          yPercent: 100,
+          opacity: 0,
+        },
+        {
+          yPercent: 0,
+          opacity: 1,
+          duration: 1,
+        },
+        "-=1"
+      );
+  }, []);
 
   return (
     <section className="relative min-h-screen pb-20">

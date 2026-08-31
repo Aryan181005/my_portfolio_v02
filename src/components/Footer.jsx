@@ -21,9 +21,9 @@ const Footer = () => {
   ];
 
   return (
-    <section className="">
+    <section className="bg-background text-foreground">
       {/* Footer Hero */}
-      <div className="relative overflow-hidden flex justify-center items-center p-10 bg-foreground">
+      <div className="relative overflow-hidden flex justify-center items-center pb-2 bg-foreground ">
         {/* Marquee Text */}
         <motion.h1
           animate={{ x: ["40%", "-50%"] }}
@@ -32,12 +32,12 @@ const Footer = () => {
             ease: "linear",
             repeat: Infinity,
           }}
-          className="absolute text-muted/30 text-[25vw] font-sulphur font-semibold whitespace-nowrap leading-none z-0"
+          className="absolute bg-linear-to-b from-muted/80 from-0% to-transparent to-90% bg-clip-text text-transparent text-8xl lg:text-[20rem] font-poppins font-black whitespace-nowrap leading-none z-0"
         >
-          <span>Contact Me Contact Me</span>
+          <span>Contact Me Contact Me Contact Me</span>
         </motion.h1>
         {/* Overlay Video */}
-        <div className="relative z-10 w-[40vw] h-[20vw] rounded-full overflow-hidden">
+        <div className="relative z-10 w-[60vw] h-[30vw] lg:w-[40vw] lg:h-[20vw] rounded-full overflow-hidden">
           <video
             src="/heart.mp4"
             autoPlay
@@ -90,10 +90,15 @@ const Footer = () => {
         <div className="lg:absolute bottom-0 right-0 left-0 px-8 lg:px-16 font-poppins mt-10 lg:mt-0">
           <div className="relative flex justify-end items-start">
             {/* Copyright */}
-            <span className="absolute bottom-8 left-0 text-base lg:text-xl"> &copy; aryn 2026</span>
+            <span className="absolute bottom-15 lg:bottom-8 left-0 text-base lg:text-xl">
+              {" "}
+              &copy; aryn 2026
+            </span>
             {/* Giant Logo */}
-            <div className="flex gap-1 lg:gap-3 relative items-start">
-              <span className="text-[25vw] lg:text-[15vw] tracking-[-0.06em] font-sulphur leading-none">aryn</span>
+            <div className="flex gap-1 lg:gap-3 relative items-start mb-12 lg:mb-0">
+              <span className="text-[25vw] lg:text-[15vw] tracking-[-0.06em] font-sulphur leading-none">
+                aryn
+              </span>
               <span className="mt-[2vw] text-[3vw]">tm</span>
             </div>
           </div>
