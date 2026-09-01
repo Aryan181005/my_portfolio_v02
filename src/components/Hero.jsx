@@ -12,14 +12,22 @@ import { motion } from "framer-motion";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import React, { useEffect, useRef, useState } from "react";
+import { ScrollTrigger } from "gsap/all";
+import { href } from "react-router";
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const Hero = () => {
   const socials = [
-    <Github size={20} />,
-    <LinkedinIcon size={20} />,
-    <Instagram size={20} />,
+    { icon: <Github size={20} />, href: "https://github.com/Aryan181005" },
+    {
+      icon: <LinkedinIcon size={20} />,
+      href: "https://linkedin.com/in/aryan181005",
+    },
+    {
+      icon: <Instagram size={20} />,
+      href: "https://instagram.com/aryxn.1810/",
+    },
   ];
 
   const ctaPrimaryRef = useRef(null);
@@ -65,7 +73,11 @@ const Hero = () => {
   const ctaRef = useRef(null);
   const dividerRef = useRef(null);
   const videoRef = useRef(null);
+  const sloganRef = useRef(null);
+  const sloganLinesRef = useRef([]);
+  const linkedinButtonRef = useRef(null);
 
+  // Hero to CTA
   useGSAP(() => {
     const tl = gsap.timeline({
       defaults: {
@@ -166,7 +178,7 @@ const Hero = () => {
           scaleY: 1,
           duration: 1,
         },
-        "-=1"
+        "-=1",
       )
       // CTA Container
       .fromTo(
@@ -180,9 +192,52 @@ const Hero = () => {
           opacity: 1,
           duration: 1,
         },
-        "-=1"
+        "-=1",
       );
   }, []);
+
+  // Slogan
+  useGSAP(() => {
+    // Slogan Div
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sloganRef.current,
+        start: "top 80%",
+        once: true,
+      },
+    });
+
+    // Slogan lines
+    tl.fromTo(
+      sloganLinesRef.current,
+      {
+        y: "100%",
+        opacity: 0,
+      },
+      {
+        y: "0%",
+        opacity: 1,
+        duration: 1.2,
+        stagger: 0.3,
+        ease: "power4.out",
+      },
+    )
+      // LinkedIn Button
+      .fromTo(
+        linkedinButtonRef.current,
+        {
+          x: -150,
+          opacity: 0,
+        },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power4.out",
+        },
+        "-=1.5",
+      );
+  }, {scope: sloganRef});
 
   return (
     <section className="relative min-h-screen pb-20">
@@ -248,7 +303,7 @@ const Hero = () => {
               className="relative w-full h-full rounded-4xl overflow-clip"
             >
               <img
-                src="/portrait.png"
+                src="/portrait4.png"
                 alt="Portrait"
                 className="w-full h-full object-cover object-center"
               />
@@ -257,10 +312,12 @@ const Hero = () => {
                 {socials.map((icon, idx) => (
                   <a
                     className="rounded-full bg-surface/30 backdrop-blur-sm p-3 border border-border text-foreground hover:bg-accent hover:text-background transition-colors duration-200"
-                    href=""
+                    href={icon.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     key={idx}
                   >
-                    {icon}
+                    {icon.icon}
                   </a>
                 ))}
               </div>
@@ -297,7 +354,7 @@ const Hero = () => {
           <Ctas
             label="View My Works"
             icon={ChevronRightIcon}
-            href=""
+            href="#projects"
             isPrimary={false}
             iconRef={ctaSecondaryRef}
           />
@@ -311,12 +368,18 @@ const Hero = () => {
         </div>
       </div>
       {/* Slogan */}
-      <div className="relative flex flex-col-reverse lg:flex-row justify-around items-end z-10 font-poppins w-full pt-30 px-10 lg:px-0">
+      <div
+        ref={sloganRef}
+        className="relative flex flex-col-reverse lg:flex-row justify-around items-end z-10 font-poppins w-full pt-30 px-10 lg:px-0"
+      >
         {/* LinkedIn Button */}
         <a
+          ref={linkedinButtonRef}
           onMouseEnter={() => linkedinRef.current?.startAnimation()}
           onMouseLeave={() => linkedinRef.current?.stopAnimation()}
-          href=""
+          rel="noopener noreferrer"
+          href="https://linkedin.com/in/aryan181005"
+          target="_blank"
           className="group flex items-center justify-between rounded-full pl-5 pr-2 py-2 z-10 border border-muted/40 w-60 mt-12 hover:border-accent/30 mr-auto lg:mr-0"
         >
           <p className="font-poppins group-hover:text-accent duration-300">
@@ -328,11 +391,33 @@ const Hero = () => {
         </a>
         {/* Slogan */}
         <p className="max-w-102 flex justify-end flex-col text-xl lg:text-3xl">
-          <span className="self-end block">Crafting Thoughtful</span>{" "}
-          <span className="self-start block">
-            Digital Experiences <span className="text-muted">Beyond</span>{" "}
-          </span>{" "}
-          <span className="text-muted block">The Expected</span>
+          {/* masking div */}
+          <div className="overflow-hidden self-end">
+            {/* Content */}
+            <span
+              ref={(el) => (sloganLinesRef.current[0] = el)}
+              className="block"
+            >
+              Crafting Thoughtful
+            </span>
+          </div>
+          <div className="overflow-hidden self-start">
+            <span
+              ref={(el) => (sloganLinesRef.current[1] = el)}
+              className="block"
+            >
+              Digital Experiences{" "}
+              <span className="text-muted">Beyond</span>{" "}
+            </span>{" "}
+          </div>
+          <div className="overflow-hidden">
+            <span
+              ref={(el) => (sloganLinesRef.current[2] = el)}
+              className="text-muted block"
+            >
+              The Expected
+            </span>
+          </div>
         </p>
       </div>
     </section>
