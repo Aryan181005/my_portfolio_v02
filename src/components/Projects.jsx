@@ -215,7 +215,7 @@ const Projects = () => {
           bg="/project1.avif"
           href="https://nexalgo.vercel.app"
         />
-        <ProjectCard
+        {/* <ProjectCard
           number="03"
           title="Church Website"
           role="Designer & Developer"
@@ -224,7 +224,7 @@ const Projects = () => {
           tech={["React", "TailwindCSS", "Framer Motion"]}
           bg="/project1.avif"
           href="https://hphv2.netlify.app"
-        />
+        /> */}
       </div>
     </section>
   );

@@ -32,7 +32,7 @@ const MarqContent2 = () => {
 
 const Marquee = () => {
   return (
-    <section className="h-[25vh] lg:h-[50vh] bg-foreground overflow-hidden py-30">
+    <section className="relative z-10 h-[25vh] lg:h-[50vh] bg-foreground overflow-hidden py-30">
       {/* Marquee 1 */}
       <div className="rotate-6">
         <motion.div

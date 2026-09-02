@@ -21,7 +21,7 @@ const Navbar = () => {
     { label: "Home", path: "/" },
     { label: "About", path: "/about" },
     { label: "Skills", path: "/skills" },
-    { label: "Projects", path: "/projects" },
+    { label: "Projects", path: "#projects" },
     { label: "Experience", path: "/experience" },
     { label: "Contact", path: "/contact" },
   ];
@@ -48,7 +48,7 @@ const Navbar = () => {
         duration: 1,
         ease: "power4.out",
       },
-      "+=1.8"
+      "+=1.8",
     );
   }, []);
 
@@ -165,7 +165,17 @@ const Navbar = () => {
               <div className="flex flex-col justify-between items-center gap-3">
                 {navlinks.map((nav) => {
                   const isActive = location.pathname === nav.path;
-                  return (
+                  const isExternal = nav.path[0] === "#";
+                  return isExternal ? (
+                    <a
+                      key={nav.path}
+                      href={nav.path}
+                      onClick={() => setMenuOpen(false)}
+                      className={`font-orbitron text-xl lg:text-4xl`}
+                    >
+                      {nav.label}
+                    </a>
+                  ) : (
                     <Link
                       key={nav.path}
                       to={nav.path}
