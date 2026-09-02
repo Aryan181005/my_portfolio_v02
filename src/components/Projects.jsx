@@ -13,7 +13,7 @@ const ProjectCard = ({ number, role, year, desc, tech, title, bg, href }) => {
       project-card absolute
       left-1/2 -translate-x-1/2
       w-[95vw] lg:w-[99vw]
-      h-[80vh] lg:h-[78%]
+      h-[80svh] lg:h-[78%]
       z-10
       rounded-4xl
       overflow-hidden
@@ -41,8 +41,7 @@ const ProjectCard = ({ number, role, year, desc, tech, title, bg, href }) => {
         grid-cols-1
         lg:grid-cols-[1fr_30%_1fr]
         place-items-center
-        gap-8
-        lg:gap-12
+        gap-1 lg:gap-12
         px-8 py-6 lg:p-15"
         >
           {/* Left */}
@@ -103,13 +102,12 @@ const Projects = () => {
   // GSAP
   const cardsRef = useRef(null);
   const projectHeadingRef = useRef(null);
-  const cardContainer = useRef(null);
 
   useGSAP(() => {
     const cards = gsap.utils.toArray(".project-card");
 
     gsap.set(cards, {
-      y: "100vh",
+      y: "100svh",
     });
 
     gsap.set(cards[0], {
@@ -120,9 +118,10 @@ const Projects = () => {
       scrollTrigger: {
         trigger: cardsRef.current,
         start: "top top",
-        end: `+=${(cards.length - 1) * 1000}`,
+        end: `+=${(cards.length - 1) * 1200}`,
         pin: true,
         scrub: 1,
+        invalidateOnRefresh: true,
       },
     });
 
@@ -170,19 +169,13 @@ const Projects = () => {
           duration: 1,
           ease: "power4.out",
         },
-      )
-      .fromTo(
-        cardContainer.current,
-        {
-          yPercent: 100,
-        },
-        {
-          yPercent: 0,
-          duration: 1,
-          ease: "power4.out",
-        },
-        "-=0.85",
       );
+
+    const refresh = () => ScrollTrigger.refresh();
+    window.addEventListener("load", refresh);
+    return () => {
+      window.removeEventListener("load", refresh);
+    };
   }, []);
 
   return (
@@ -200,7 +193,7 @@ const Projects = () => {
         </h1>
       </div>
 
-      <div ref={cardContainer} className="relative h-screen">
+      <div className="relative min-h-svh lg:min-h-screen">
         <ProjectCard
           number="01"
           title="Portfolio"

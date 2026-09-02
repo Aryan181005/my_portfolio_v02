@@ -270,7 +270,7 @@ const Hero = () => {
             <div className="flex flex-col">
               <h1
                 ref={nameRef}
-                className="text-8xl md:text-[10rem] font-sulphur text-accent"
+                className="text-8xl md:text-[10rem] font-sulphur text-accent whitespace-nowrap"
               >
                 {"Aryan".split("").map((letter, idx) => (
                   <span key={idx} className="inline-block leading-none">
@@ -361,7 +361,7 @@ const Hero = () => {
           <Ctas
             label="Contact Me"
             icon={ArrowRight}
-            href=""
+            href="mailto:aryansingh181005@gmail.com"
             isPrimary={true}
             iconRef={ctaPrimaryRef}
           />
@@ -390,7 +390,7 @@ const Hero = () => {
           </span>
         </a>
         {/* Slogan */}
-        <p className="max-w-102 flex justify-end flex-col text-xl lg:text-3xl">
+        <div className="max-w-102 flex justify-end flex-col text-xl lg:text-3xl">
           {/* masking div */}
           <div className="overflow-hidden self-end">
             {/* Content */}
@@ -418,7 +418,7 @@ const Hero = () => {
               The Expected
             </span>
           </div>
-        </p>
+        </div>
       </div>
     </section>
   );
